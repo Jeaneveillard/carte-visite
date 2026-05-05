@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Impression - 10 Cartes de Visite (Recto) - Mie Joe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --bg-dark: #271c19;
+            --text-main: #fefce8;
+            --text-muted: #d6d3d1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .page {
+            width: 8.5in;
+            height: 11in;
+            background: white;
+            padding-top: 0.5in;
+            padding-left: 0.75in;
+            display: grid;
+            grid-template-columns: 3.5in 3.5in;
+            grid-template-rows: repeat(5, 2in);
+            gap: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-print {
+            width: 3.5in;
+            height: 2in;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            border: 0.5px dashed rgba(0, 0, 0, 0.3); 
+            display: flex;
+            align-items: center;
+            padding: 0.25in;
+            gap: 0.2in;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-print::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.1), transparent 30%),
+                radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.05), transparent 30%);
+            z-index: 1;
+        }
+
+        .logo-container {
+            width: 0.75in;
+            height: 0.75in;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--primary);
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 11.5pt;
+            font-weight: 800;
+            margin-bottom: 2px;
+            color: #fff;
+        }
+
+        .title {
+            font-size: 7pt;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 7.5pt;
+            color: #fefce8;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            width: 12px;
+            text-align: center;
+        }
+
+        .print-controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .print-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .print-btn:hover {
+            background-color: #d97706;
+        }
+
+        @media print {
+            body { background: none; padding: 0; }
+            .page { box-shadow: none; margin: 0; }
+            @page { size: letter; margin: 0; }
+            .no-print { display: none !important; }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="print-controls no-print">
+        <h2>Prêt pour l'impression (Kibbeh Mie Joe)</h2>
+        <p style="margin: 10px 0; color: #64748b; font-size: 14px;">
+            ⚠️ <strong>Important :</strong> Dans Chrome, cochez <strong>"Graphiques d'arrière-plan"</strong><br>
+            et mettez l'échelle à <strong>"Par défaut"</strong> (100%).
+        </p>
+        <button class="print-btn" onclick="window.print()">
+            <i class="fas fa-print"></i> Lancer l'impression
+        </button>
+    </div>
+
+    <div class="page">
+        <script>
+            const cardHTML = `
+                <div class="card-print">
+                    <div class="logo-container">
+                        <img src="../Marie Josee/Mie joe/assets/images/kibbey.png" alt="Logo Kibbeh Mie Joe" class="logo">
+                    </div>
+                    <div class="info-container">
+                        <div class="name">Marie Josée Vaval</div>
+                        <div class="title">Fondatrice & Créatrice</div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>786-413-7988</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>mvaval43@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            for(let i=0; i<10; i++) {
+                document.write(cardHTML);
+            }
+        </script>
+    </div>
+
+</body>
+</html>

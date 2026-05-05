@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Impression - 10 Cartes de Visite (Recto)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #f97316;
+            --bg-dark: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #cbd5e1; /* Fond gris clair pour l'écran */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+        }
+
+        /* Format page Lettre US (8.5 x 11 pouces) */
+        .page {
+            width: 8.5in;
+            height: 11in;
+            background: white;
+            /* Marges pour centrer le bloc de cartes (7in de large x 10in de haut) */
+            padding-top: 0.5in;
+            padding-left: 0.75in;
+            display: grid;
+            grid-template-columns: 3.5in 3.5in;
+            grid-template-rows: repeat(5, 2in);
+            gap: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Design Statique de la carte (3.5 x 2 pouces) */
+        .card-print {
+            width: 3.5in;
+            height: 2in;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            /* Ligne de découpe légère */
+            border: 0.5px dashed rgba(0, 0, 0, 0.3); 
+            display: flex;
+            align-items: center;
+            padding: 0.25in;
+            gap: 0.2in;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background effects */
+        .card-print::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(249, 115, 22, 0.15), transparent 35%),
+                radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.1), transparent 35%);
+            z-index: 1;
+        }
+
+        .logo-container {
+            width: 0.75in;
+            height: 0.75in;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.1in;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 2;
+        }
+
+        .logo {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .info-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .name {
+            font-size: 11pt;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: #fff;
+        }
+
+        .title {
+            font-size: 7.5pt;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 7.5pt;
+            color: #e2e8f0;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            width: 12px;
+            text-align: center;
+        }
+
+        /* Style pour l'écran uniquement */
+        .print-controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .print-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: background 0.2s;
+        }
+
+        .print-btn:hover {
+            background-color: #ea580c;
+        }
+
+        /* Règle spécifique pour l'imprimante */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+            }
+            @page {
+                size: letter;
+                margin: 0;
+            }
+            /* Cache les boutons au moment de l'impression */
+            .no-print {
+                display: none !important;
+            }
+            
+            /* S'assure que les couleurs de fond sombres s'impriment bien (nécessite l'option "Imprimer l'arrière-plan" cochée dans Chrome) */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="print-controls no-print">
+        <h2>Prêt pour l'impression (Format 8.5 x 11)</h2>
+        <p style="margin: 10px 0; color: #64748b; font-size: 14px;">
+            ⚠️ <strong>Important :</strong> Dans les paramètres d'impression de Chrome,<br>
+            cochez <strong>"Graphiques d'arrière-plan"</strong> (Background graphics) <br>
+            et mettez l'échelle (Scale) à <strong>"Par défaut"</strong> ou <strong>"100%"</strong> (Pas "Ajuster").
+        </p>
+        <button class="print-btn" onclick="window.print()">
+            <i class="fas fa-print"></i> Lancer l'impression
+        </button>
+    </div>
+
+    <!-- La feuille 8.5 x 11 avec les 10 cartes -->
+    <div class="page">
+        <!-- JavaScript va générer les 10 cartes pour ne pas dupliquer le code HTML -->
+        <script>
+            const cardHTML = `
+                <div class="card-print">
+                    <div class="logo-container">
+                        <img src="../JEC/icon-512.png" alt="Logo KZO InspectPro" class="logo">
+                    </div>
+                    <div class="info-container">
+                        <div class="name">Jean Eveillard Cazeau</div>
+                        <div class="title">Inspecteur</div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>438-368-6703</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>kzoinspectpro@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            for(let i=0; i<10; i++) {
+                document.write(cardHTML);
+            }
+        </script>
+    </div>
+
+</body>
+</html>

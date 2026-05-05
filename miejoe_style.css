@@ -1,0 +1,239 @@
+:root {
+    --primary: #f59e0b; /* Ambre doré pour rappeler la croûte du kibbeh */
+    --primary-glow: rgba(245, 158, 11, 0.4);
+    --bg-dark: #271c19; /* Brun chaud très foncé (aspect premium et culinaire) */
+    --card-bg: rgba(63, 46, 42, 0.75); /* Effet verre teinté chaud */
+    --text-main: #fefce8;
+    --text-muted: #d6d3d1;
+    --border-glass: rgba(245, 158, 11, 0.15); /* Bordure subtilement dorée */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.1), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.05), transparent 30%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+.card-container {
+    perspective: 1000px;
+    width: 400px;
+    height: 230px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+/* Effet de flip au survol */
+.card-container:hover .card {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), 
+                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    display: flex;
+}
+
+/* Eclairage subtil sur les bords */
+.card-front::before, .card-back::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245,158,11,0.4), transparent);
+}
+
+/* ================= FACE AVANT ================= */
+.card-front {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-container {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 25px var(--primary-glow);
+    overflow: hidden;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* L'image kibbey.png prendra tout l'espace du cercle */
+}
+
+.info-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
+}
+
+.contact-item i {
+    color: var(--primary);
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.contact-item:hover {
+    color: var(--text-main);
+}
+
+/* ================= FACE ARRIERE ================= */
+.card-back {
+    transform: rotateY(180deg);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--bg-dark), #1a1210);
+}
+
+.logo-large {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+    margin-bottom: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+
+.company-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+}
+
+.tagline {
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--primary);
+    text-transform: uppercase;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.services-list {
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.services-list span {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.social-link {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245, 158, 11, 0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    transition: all 0.3s ease;
+}
+
+.social-link i {
+    color: var(--primary);
+}
+
+.social-link:hover {
+    background: rgba(245, 158, 11, 0.25);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+/* Animation flottante */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.card-container {
+    animation: float 6s ease-in-out infinite;
+}
